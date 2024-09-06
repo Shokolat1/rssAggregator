@@ -24,6 +24,7 @@ type Feed struct {
 	UserID    uuid.UUID `json:"user_id"`
 }
 
+// Return a User instance
 func databaseUserToUser(dbUser database.User) User {
 	return User{
 		ID:        dbUser.ID,
@@ -34,6 +35,7 @@ func databaseUserToUser(dbUser database.User) User {
 	}
 }
 
+// Return a Feed instance
 func databaseFeedToFeed(dbFeed database.Feed) Feed {
 	return Feed{
 		ID:        dbFeed.ID,
@@ -43,4 +45,13 @@ func databaseFeedToFeed(dbFeed database.Feed) Feed {
 		Url:       dbFeed.Url,
 		UserID:    dbFeed.UserID,
 	}
+}
+
+// Returns a slice of Feed instances
+func databaseFeedsToFeeds(dbFeed []database.Feed) []Feed {
+	feeds := []Feed{}
+	for _, dbFeed := range dbFeed {
+		feeds = append(feeds, databaseFeedToFeed(dbFeed))
+	}
+	return feeds
 }

@@ -71,7 +71,10 @@ func main() {
 	// Create User
 	v1Router.Post("/users", apiCfg.handlerCreateUser)
 	// Get user based on api key
-	v1Router.Get("/users", apiCfg.handlerGetUser)
+	v1Router.Get("/users", apiCfg.middlewareAuth(apiCfg.handlerGetUser))
+
+	// Create Feed
+	v1Router.Post("/feeds", apiCfg.middlewareAuth(apiCfg.handlerCreateFeed))
 
 	// Mount all the routes inside v1Router into the general router. An example of how routes will look like is: localhost:8000/v1/health
 	router.Mount("/v1", v1Router)

@@ -85,7 +85,11 @@ func main() {
 	v1Router.Post("/feed_follows", apiCfg.middlewareAuth(apiCfg.handlerCreateFeedFollow))
 	// Get all Feed Follows
 	v1Router.Get("/feed_follows", apiCfg.middlewareAuth(apiCfg.handlerGetFeedFollows))
+	// Delete a feed follow from a user
 	v1Router.Delete("/feed_follows/{feedFollowID}", apiCfg.middlewareAuth(apiCfg.handlerDeleteFeedFollow))
+
+	// Get all posts for a certain user
+	v1Router.Get("/posts", apiCfg.middlewareAuth(apiCfg.handlerGetPostsForUser))
 
 	// Mount all the routes inside v1Router into the general router. An example of how routes will look like is: localhost:8000/v1/health
 	router.Mount("/v1", v1Router)
